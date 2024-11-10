@@ -1,3 +1,5 @@
+"use client";
+
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
@@ -25,22 +27,24 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 
-const signinSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(1, { message: "Password is required" }),
-});
+import { loginSchema } from "../schemas";
+import { useLogin } from "../api/use-login";
 
 export function SignInCard() {
-  const form = useForm<z.infer<typeof signinSchema>>({
-    resolver: zodResolver(signinSchema),
+  const { mutate, isPending } = useLogin();
+
+  const form = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof signinSchema>) => {
+  const onSubmit = (values: z.infer<typeof loginSchema>) => {
     console.log("values", values);
+
+    mutate({ json: values });
   };
 
   return (
@@ -92,7 +96,7 @@ export function SignInCard() {
               )}
             />
 
-            <Button disabled={false} size={"lg"} className="w-full">
+            <Button disabled={isPending} size={"lg"} className="w-full">
               Login
             </Button>
           </form>
@@ -108,7 +112,7 @@ export function SignInCard() {
           variant={"secondary"}
           size={"lg"}
           className="w-full border"
-          disabled={false}
+          disabled={isPending}
         >
           <FcGoogle className="mr-2 size-5" />
           Login with Google
@@ -118,7 +122,7 @@ export function SignInCard() {
           variant={"secondary"}
           size={"lg"}
           className="w-full border"
-          disabled={false}
+          disabled={isPending}
         >
           <FaGithub className="mr-2 size-5" />
           Login with GitHub
