@@ -12,9 +12,12 @@ import {
 import WorkspaceAvatar from "@/features/workspaces/components/workspace-avatar";
 import { useRouter } from "next/navigation";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
+import { useCreateWorkspaceModal } from "@/features/workspaces/hooks/use-create-workspace-modal";
 
 export default function WorkspaceSwitcher() {
   const router = useRouter();
+
+  const { open } = useCreateWorkspaceModal();
 
   const { data: workspaces } = useGetWorkspaces();
   const workspaceId = useWorkspaceId();
@@ -28,7 +31,10 @@ export default function WorkspaceSwitcher() {
       <div className="flex items-center justify-between text-neutral-500">
         <p className="text-xs uppercase">Workspaces</p>
 
-        <RiAddCircleFill className="size-5 cursor-pointer transition hover:opacity-75" />
+        <RiAddCircleFill
+          onClick={open}
+          className="size-5 cursor-pointer transition hover:opacity-75"
+        />
       </div>
 
       <Select onValueChange={onSelect} value={workspaceId}>
