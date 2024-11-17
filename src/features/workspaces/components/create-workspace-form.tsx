@@ -143,16 +143,34 @@ function CreateWorkspaceForm({ onCancel }: CreateWorkspaceFormProps) {
                           disabled={isPending}
                         />
 
-                        <Button
-                          type="button"
-                          variant={"teritary"}
-                          size={"xs"}
-                          className="mt-2 w-fit"
-                          disabled={isPending}
-                          onClick={() => inputRef.current?.click()}
-                        >
-                          Upload Image
-                        </Button>
+                        {field.value ? (
+                          <Button
+                            type="button"
+                            variant={"destructive"}
+                            size={"xs"}
+                            className="mt-2 w-fit"
+                            disabled={isPending}
+                            onClick={() => {
+                              field.onChange(null);
+                              if (inputRef.current) {
+                                inputRef.current.value = "";
+                              }
+                            }}
+                          >
+                            Upload Image
+                          </Button>
+                        ) : (
+                          <Button
+                            type="button"
+                            variant={"teritary"}
+                            size={"xs"}
+                            className="mt-2 w-fit"
+                            disabled={isPending}
+                            onClick={() => inputRef.current?.click()}
+                          >
+                            Upload Image
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </div>
