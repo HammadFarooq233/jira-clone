@@ -1,5 +1,6 @@
 import { getCurrent } from "@/features/auth/actions";
 import { AUTH_COOKIE } from "@/features/auth/constants";
+import JoinWorkspaceForm from "@/features/workspaces/components/join-workspace-form";
 import { client } from "@/lib/rpc";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -32,5 +33,9 @@ export default async function Page({ params }: PageProps) {
 
   const { data } = await response.json();
 
-  return <div>join page {JSON.stringify(data)}</div>;
+  return (
+    <div className="w-full lg:max-w-xl">
+      <JoinWorkspaceForm initialValues={data} />
+    </div>
+  );
 }

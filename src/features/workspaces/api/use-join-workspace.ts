@@ -31,7 +31,7 @@ export const useJoinWorkspace = () => {
       return await response.json();
     },
     onSuccess: ({ data }) => {
-      toast.success("Invite code reset");
+      toast.success("Workspace joined successfully");
       queryClient.invalidateQueries({ queryKey: ["workspaces"] });
       queryClient.invalidateQueries({ queryKey: ["workspace", data.$id] });
     },
