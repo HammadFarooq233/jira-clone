@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetProjects } from "@/features/projects/api/use-get-projects";
+import ProjectAvatar from "@/features/projects/components/project-avatar";
 import { useCreateProjectModal } from "@/features/projects/hooks/use-create-project-modal";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { cn } from "@/lib/utils";
@@ -14,7 +15,7 @@ export default function Projects() {
   const workspaceId = useWorkspaceId();
 
   // TODO: Create useProjectId hook and use here to get the projectId
-  const projectId = null;
+  // const projectId = null;
 
   const { data } = useGetProjects({ workspaceId });
 
@@ -32,7 +33,7 @@ export default function Projects() {
       </div>
 
       {data?.documents.map((project) => {
-        const href = `/workspaces/${workspaceId}/projects/${projectId}`;
+        const href = `/workspaces/${workspaceId}/projects/${project.$id}`;
         const isActive = pathname === href;
 
         return (
@@ -43,6 +44,7 @@ export default function Projects() {
                 isActive && "bg-white text-primary shadow-sm hover:opacity-100",
               )}
             >
+              <ProjectAvatar image={project.imageUrl} name={project.name} />
               <span className="truncate">{project.name}</span>
             </div>
           </Link>
