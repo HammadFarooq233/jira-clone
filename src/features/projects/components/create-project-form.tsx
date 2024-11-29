@@ -23,14 +23,14 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useCreateProject } from "../api/use-create-project";
 import { createProjectSchema } from "../schemas";
+import { useRouter } from "next/navigation";
 
 interface CreateProjectFormProps {
   onCancel?: () => void;
 }
 
 function CreateProjectForm({ onCancel }: CreateProjectFormProps) {
-  
-
+  const router = useRouter();
   const workspaceId = useWorkspaceId();
 
   const { mutate, isPending } = useCreateProject();
@@ -64,10 +64,9 @@ function CreateProjectForm({ onCancel }: CreateProjectFormProps) {
     mutate(
       { form: finalValues },
       {
-        onSuccess: ({}) => {
+        onSuccess: ({ data }) => {
           form.reset();
-
-          // TODO: Redirect to project screen
+          router.push(`/workspaces/${workspaceId}/projects/${data.$id}`);
         },
       },
     );
