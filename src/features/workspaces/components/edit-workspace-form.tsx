@@ -89,14 +89,7 @@ function EditWorkspaceForm({
 
     if (!ok) return;
 
-    resetInviteCode(
-      { param: { workspaceId: initialValues.$id } },
-      {
-        onSuccess: () => {
-          router.refresh();
-        },
-      },
-    );
+    resetInviteCode({ param: { workspaceId: initialValues.$id } });
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,10 +111,8 @@ function EditWorkspaceForm({
     mutate(
       { form: finalValues, param: { workspaceId: initialValues.$id } },
       {
-        onSuccess: ({}) => {
+        onSuccess: () => {
           form.reset();
-          // router.push(`/workspaces/${data.$id}`);
-          window.location.href = "/";
         },
       },
     );
