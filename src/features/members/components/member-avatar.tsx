@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 interface MemberAvatarProps {
   name: string;
   className?: string;
-  fallbackClassName: string;
+  fallbackClassName?: string;
 }
 
 export default function MemberAvatar({
