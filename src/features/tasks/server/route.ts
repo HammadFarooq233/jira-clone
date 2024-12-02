@@ -18,7 +18,7 @@ const app = new Hono()
       const user = c.get("user");
       const databases = c.get("databases");
 
-      const { projectId, workspaceId, assigneedId, status, search, dueDate } =
+      const { projectId, workspaceId, assigneeId, status, search, dueDate } =
         c.req.valid("query");
 
       const member = await getMember({
@@ -51,9 +51,9 @@ const app = new Hono()
         query.push(Query.equal("name", search));
       }
 
-      if (assigneedId) {
-        console.log("assigneedId", assigneedId);
-        query.push(Query.equal("assigneedId", assigneedId));
+      if (assigneeId) {
+        console.log("assigneeId", assigneeId);
+        query.push(Query.equal("assigneeId", assigneeId));
       }
 
       if (dueDate) {
@@ -75,7 +75,7 @@ const app = new Hono()
       const members = await databases.listDocuments(
         DATABASE_ID,
         MEMBERS_ID,
-        assigneeIds.length > 0 ? [Query.contains("$id", assigneeIds)] : [],
+        assigneeIds.length > 0 ? [Query.contains("userId", assigneeIds)] : [],
       );
 
       const assignees = await Promise.all(
@@ -127,7 +127,7 @@ const app = new Hono()
         workspaceId,
         status,
         projectId,
-        assigneedId,
+        assigneeId,
         dueDate,
         description,
       } = c.req.valid("json");
@@ -166,7 +166,7 @@ const app = new Hono()
           name,
           description,
           status,
-          assigneedId,
+          assigneeId,
           workspaceId,
           projectId,
           position: newPosition,

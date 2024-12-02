@@ -112,7 +112,7 @@ function CreateTaskForm({
               />
 
               <FormField
-                name="assigneedId"
+                name="assigneeId"
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
