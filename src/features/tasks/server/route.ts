@@ -7,6 +7,7 @@ import { DATABASE_ID, MEMBERS_ID, PROJECTS_ID, TASKS_ID } from "@/config";
 import { ID, Query } from "node-appwrite";
 import { createAdminClient } from "@/lib/appwrite";
 import { Project } from "@/features/projects/types";
+import { Task } from "../types";
 
 const app = new Hono()
   .get(
@@ -61,7 +62,11 @@ const app = new Hono()
         query.push(Query.equal("dueDate", dueDate));
       }
 
-      const tasks = await databases.listDocuments(DATABASE_ID, TASKS_ID, query);
+      const tasks = await databases.listDocuments<Task>(
+        DATABASE_ID,
+        TASKS_ID,
+        query,
+      );
 
       const projectIds = tasks.documents.map((task) => task.projectId);
       const assigneeIds = tasks.documents.map((task) => task.assigneeId);
@@ -75,7 +80,7 @@ const app = new Hono()
       const members = await databases.listDocuments(
         DATABASE_ID,
         MEMBERS_ID,
-        assigneeIds.length > 0 ? [Query.contains("userId", assigneeIds)] : [],
+        assigneeIds.length > 0 ? [Query.contains("$id", assigneeIds)] : [],
       );
 
       const assignees = await Promise.all(
@@ -91,11 +96,11 @@ const app = new Hono()
       );
 
       const populatedTasks = tasks.documents.map((task) => {
-        const project = projects.documents.map(
+        const project = projects.documents.find(
           (project) => project.$id === task.projectId,
         );
 
-        const assignee = assignees.map(
+        const assignee = assignees.find(
           (assignee) => assignee.$id === task.assigneeId,
         );
 
