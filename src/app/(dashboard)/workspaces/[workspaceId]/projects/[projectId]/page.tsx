@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { getCurrent } from "@/features/auth/actions";
 import { AUTH_COOKIE } from "@/features/auth/constants";
 import ProjectAvatar from "@/features/projects/components/project-avatar";
-import TaskViewSwitcher from "@/features/tasks/components/task-view.switcher";
+import TaskViewSwitcher from "@/features/tasks/components/task-view-switcher";
 import { client } from "@/lib/rpc";
 import { PencilIcon } from "lucide-react";
 import { cookies } from "next/headers";
