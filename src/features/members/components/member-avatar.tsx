@@ -15,7 +15,7 @@ export default function MemberAvatar({
   return (
     <Avatar
       className={cn(
-        "size-10 rounded-full border border-neutral-300 transition",
+        "size-5 rounded-full border border-neutral-300 transition",
         className,
       )}
     >
