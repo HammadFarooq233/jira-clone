@@ -29,10 +29,7 @@ type TasksState = {
   [key in TaskStatus]: Task[];
 };
 
-export default function DataKanban({
-  data,
-  onChange = () => {},
-}: DataKanbanProps) {
+export default function DataKanban({ data, onChange }: DataKanbanProps) {
   const [tasks, setTasks] = useState<TasksState>(() => {
     const initialTasks: TasksState = {
       [TaskStatus.BACKLOG]: [],
@@ -95,7 +92,7 @@ export default function DataKanban({
 
         // Safely remove the task from the source column
         const sourceColumn = [...newTasks[sourceStatus]];
-        const [movedTask] = sourceColumn.splice(source.index, 0);
+        const [movedTask] = sourceColumn.splice(source.index, 1);
 
         // If there's no moved task
         if (!movedTask) {
@@ -105,7 +102,7 @@ export default function DataKanban({
 
         // Create a new task with potentially updated status
         const updatedMovedTask =
-          sourceStatus !== movedTask.status
+          sourceStatus !== destStatus
             ? { ...movedTask, status: destStatus }
             : movedTask;
 
@@ -157,6 +154,8 @@ export default function DataKanban({
 
         return newTasks;
       });
+
+      console.log("updatesPayload", updatesPayload);
 
       onChange(updatesPayload);
     },

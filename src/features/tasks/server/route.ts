@@ -7,7 +7,8 @@ import { DATABASE_ID, MEMBERS_ID, PROJECTS_ID, TASKS_ID } from "@/config";
 import { ID, Query } from "node-appwrite";
 import { createAdminClient } from "@/lib/appwrite";
 import { Project } from "@/features/projects/types";
-import { Task } from "../types";
+import { Task, TaskStatus } from "../types";
+import { z } from "zod";
 
 const app = new Hono()
   .get(
@@ -304,5 +305,70 @@ const app = new Hono()
         assignee,
       },
     });
-  });
+  })
+  .post(
+    "/bulk-update",
+    sessionMiddleware,
+    zValidator(
+      "json",
+      z.object({
+        tasks: z.array(
+          z.object({
+            $id: z.string(),
+            status: z.nativeEnum(TaskStatus),
+            position: z.number().int().min(1_000).max(1_000_1000),
+          }),
+        ),
+      }),
+    ),
+    async (c) => {
+      const databases = c.get("databases");
+      const user = c.get("user");
+      const { tasks } = c.req.valid("json");
+
+      const taskIds = tasks.map((task) => task.$id);
+
+      const tasksToUpdate = await databases.listDocuments<Task>(
+        DATABASE_ID,
+        TASKS_ID,
+        [Query.contains("$id", taskIds)],
+      );
+
+      const workspaceIds = new Set(
+        tasksToUpdate.documents.map((task) => task.workspaceId),
+      );
+
+      if (workspaceIds.size !== 1) {
+        return c.json(
+          { error: "All tasks must belong to the same workspace" },
+          400,
+        );
+      }
+
+      const workspaceId = workspaceIds.values().next().value;
+
+      const member = await getMember({
+        databases,
+        userId: user.$id,
+        workspaceId,
+      });
+
+      if (!member) {
+        return c.json({ error: "Unauthorized" }, 401);
+      }
+
+      const promises = tasks.map((task) => {
+        const { $id, status, position } = task;
+
+        return databases.updateDocument(DATABASE_ID, TASKS_ID, $id, {
+          status,
+          position,
+        });
+      });
+
+      const updatedTasks = await Promise.all(promises);
+
+      return c.json({ data: updatedTasks });
+    },
+  );
 export default app;
