@@ -13,6 +13,8 @@ import {
   subMonths,
 } from "date-fns";
 import { useState } from "react";
+import EventCard from "./event-card";
+import CustomToolbar from "./custom-toolbar";
 
 interface DataCalendarProps {
   data: Task[];
@@ -69,6 +71,20 @@ export default function DataCalendar({ data }: DataCalendarProps) {
       formats={{
         weekdayFormat: (date, culture, localizer) =>
           localizer?.format(date, "EEE", culture) ?? "",
+      }}
+      components={{
+        eventWrapper: ({ event }) => (
+          <EventCard
+            id={event.id}
+            title={event.title}
+            project={event.project}
+            assignee={event.assignee}
+            status={event.status}
+          />
+        ),
+        toolbar: () => (
+          <CustomToolbar date={value} onNavigate={handleNavigate} />
+        ),
       }}
     />
   );
