@@ -61,7 +61,7 @@ export default function Analytics({ data }: ProjectAnalyticsResponseType) {
         </div>
       </div>
 
-      <ScrollBar />
+      <ScrollBar orientation="horizontal" />
     </ScrollArea>
   );
 }
