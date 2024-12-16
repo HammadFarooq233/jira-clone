@@ -157,7 +157,7 @@ function CreateWorkspaceForm({ onCancel }: CreateWorkspaceFormProps) {
                               }
                             }}
                           >
-                            Upload Image
+                            Remove Image
                           </Button>
                         ) : (
                           <Button
