@@ -30,6 +30,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "../schemas";
 import { useRegister } from "../api/use-register";
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 
 export function SignUpCard() {
   const { mutate, isPending } = useRegister();
@@ -143,6 +144,7 @@ export function SignUpCard() {
           size={"lg"}
           className="w-full border"
           disabled={isPending}
+          onClick={() => signUpWithGoogle()}
         >
           <FcGoogle className="mr-2 size-5" />
           Signup with Google
@@ -153,6 +155,7 @@ export function SignUpCard() {
           size={"lg"}
           className="w-full border"
           disabled={isPending}
+          onClick={() => signUpWithGithub()}
         >
           <FaGithub className="mr-2 size-5" />
           Signup with GitHub

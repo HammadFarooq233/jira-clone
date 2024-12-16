@@ -29,6 +29,7 @@ import Link from "next/link";
 
 import { loginSchema } from "../schemas";
 import { useLogin } from "../api/use-login";
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 
 export function SignInCard() {
   const { mutate, isPending } = useLogin();
@@ -113,6 +114,7 @@ export function SignInCard() {
           size={"lg"}
           className="w-full border"
           disabled={isPending}
+          onClick={() => signUpWithGoogle()}
         >
           <FcGoogle className="mr-2 size-5" />
           Login with Google
@@ -123,6 +125,7 @@ export function SignInCard() {
           size={"lg"}
           className="w-full border"
           disabled={isPending}
+          onClick={() => signUpWithGithub()}
         >
           <FaGithub className="mr-2 size-5" />
           Login with GitHub
