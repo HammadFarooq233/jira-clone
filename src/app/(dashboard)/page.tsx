@@ -27,6 +27,4 @@ export default async function Page() {
   } else {
     redirect(`/workspaces/${workspaces.documents[0].$id}`);
   }
-
-  return <div></div>;
 }
