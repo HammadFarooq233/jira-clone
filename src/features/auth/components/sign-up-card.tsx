@@ -57,11 +57,11 @@ export function SignUpCard() {
 
         <CardDescription>
           By signing up, you agree to our{" "}
-          <Link href="/privacy" className="text-blue-700">
+          <Link href="#" className="text-blue-700">
             Privacy Policy{" "}
           </Link>
           and{" "}
-          <Link href="/terms" className="text-blue-700">
+          <Link href="#" className="text-blue-700">
             Terms of Service
           </Link>
         </CardDescription>
@@ -79,11 +79,7 @@ export function SignUpCard() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Enter your name"
-                      type="text"
-                    />
+                    <Input {...field} placeholder="Enter name" type="text" />
                   </FormControl>
 
                   <FormMessage />

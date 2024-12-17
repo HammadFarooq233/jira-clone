@@ -36,8 +36,10 @@ export default function TaskOverview({ task }: TaskOverviewProps) {
 
         <div className="flex flex-col gap-y-4">
           <OverviewProperty label="Assignee">
-            <MemberAvatar name={task.assignee.name} />
-            <p className="text-sm font-medium"></p>
+            <MemberAvatar name={task.assignee.name} fallbackClassName="text-sm" />
+            <p className="text-sm font-medium">
+              {task.assignee.name || "Unassigned"}
+            </p>
           </OverviewProperty>
 
           <OverviewProperty label="Due Date">

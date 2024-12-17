@@ -40,9 +40,6 @@ export const MemberList = ({ members, total }: MemberListProps) => {
                     <p className="line-clamp-1 text-lg font-medium">
                       {member.name}
                     </p>
-                    <p className="line-clamp-1 text-sm text-muted-foreground">
-                      {member.email}
-                    </p>
                   </div>
                 </CardContent>
               </Card>

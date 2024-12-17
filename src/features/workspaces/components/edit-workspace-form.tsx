@@ -284,7 +284,7 @@ function EditWorkspaceForm({
                 <Button
                   variant={"secondary"}
                   onClick={handleCopyInviteLink}
-                  className="size-12"
+                  className="ml-auto size-12"
                 >
                   <CopyIcon className="size-5" />
                 </Button>

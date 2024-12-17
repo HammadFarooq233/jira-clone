@@ -41,7 +41,8 @@ export default function Navigation() {
   return (
     <ul className="flex flex-col">
       {routes.map((item) => {
-        const fullHref = `/workspaces/${workspaceId}/${item.href}`;
+        const fullHref = `/workspaces/${workspaceId}${item.href}`;
+
         const isActive = pathname === fullHref;
         const Icon = isActive ? item.activeIcon : item.icon;
 
@@ -50,7 +51,7 @@ export default function Navigation() {
             <div
               className={cn(
                 "flex items-center gap-2.5 rounded-md p-2.5 font-medium text-neutral-500 transition hover:text-primary",
-                isActive && "bg-white text-primary shadow-sm hover:opacity-100",
+                isActive && "text-primary hover:opacity-100",
               )}
             >
               <Icon className="size-5 text-neutral-500" />
