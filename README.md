@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jira Clone
+
+A Jira-inspired project management tool built with modern web technologies to facilitate workspace and project organization, task management, and collaboration.
+
+## Features
+
+- **Authentication:**
+
+  - Email/password-based login
+  - Google and GitHub OAuth integration
+  - Session-based authentication
+
+- **Workspaces and Projects:**
+
+  - Create and manage multiple workspaces
+  - Add projects within workspaces
+  - Role-based access control (Admin/User) for workspaces
+  - Invite and manage workspace members via shareable links
+
+- **Task Management:**
+
+  - Create, update, delete, and organize tasks
+  - Task views:
+    - **Kanban View:** Drag & drop interface
+    - **Calendar View:** Integrated, Google Calendar-style view
+    - **Table View:** Spreadsheet-like structure for tasks
+    - Upload and manage task-related images via Appwrite Storage
+
+- **Analytics:**
+  - Simple visual analytics for workspaces and projects
+
+- **Responsive Design:** Fully responsive UI using ShadCN components and Tailwind CSS.
+
+
+## Technologies Used
+
+- **Frontend:**
+
+  - Next.js 14 with TypeScript
+  - Tailwind CSS for styling
+  - ShadCN UI for UI components
+  - TanStack React Query for data fetching, caching, and revalidation
+
+- **Backend:**
+
+  - Appwrite for database, authentication, and storage
+  - Hono.js for building RESTful APIs
+
+- **Deployment:**
+
+  - Vercel for frontend hosting
+
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+To run this project locally, ensure you have the following installed:
+
+- Node.js (v18+)
+- npm or yarn
+- Appwrite server setup
+- Installation
+
+### Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Copy code
+git clone https://github.com/yourusername/jira-clone.git
+cd jira-clone
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Install dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+``` bash
+npm install
+# or
+yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Configure environment variables:
 
-## Learn More
+Copy .env.example to .env.local and add values for the variables
 
-To learn more about Next.js, take a look at the following resources:
+### Start the development server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+``` bash
+Copy code
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
