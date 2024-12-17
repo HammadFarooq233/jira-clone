@@ -25,7 +25,7 @@ export const columns: ColumnDef<Task>[] = [
     },
     cell: ({ row }) => {
       const name = row.original.name;
-      return <p className="line-clamp-1">{name}</p>;
+      return <p className="ml-4 line-clamp-1">{name}</p>;
     },
   },
   {
@@ -45,7 +45,7 @@ export const columns: ColumnDef<Task>[] = [
       const project = row.original.project;
 
       return (
-        <div className="flex items-center gap-x-2 text-sm font-medium">
+        <div className="ml-4 flex items-center gap-x-2 text-sm font-medium">
           <ProjectAvatar
             image={project.imageUrl}
             name={project.name}
@@ -75,7 +75,7 @@ export const columns: ColumnDef<Task>[] = [
       const assignee = row.original.assignee;
 
       return (
-        <div className="flex items-center gap-x-2 text-sm font-medium">
+        <div className="ml-4 flex items-center gap-x-2 text-sm font-medium">
           <MemberAvatar
             name={assignee.name}
             className="size-6"
@@ -103,7 +103,7 @@ export const columns: ColumnDef<Task>[] = [
     },
     cell: ({ row }) => {
       const dueDate = row.original.dueDate;
-      return <TaskDate value={dueDate} />;
+      return <TaskDate value={dueDate} className="ml-4" />;
     },
   },
 
@@ -122,7 +122,11 @@ export const columns: ColumnDef<Task>[] = [
     },
     cell: ({ row }) => {
       const status = row.original.status;
-      return <Badge variant={status}>{snakeCaseToTitleCase(status)}</Badge>;
+      return (
+        <Badge variant={status} className="ml-4">
+          {snakeCaseToTitleCase(status)}
+        </Badge>
+      );
     },
   },
 
