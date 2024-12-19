@@ -65,7 +65,6 @@ To run this project locally, ensure you have the following installed:
 ### Clone the repository:
 
 ```bash
-Copy code
 git clone https://github.com/yourusername/jira-clone.git
 cd jira-clone
 ```
@@ -85,7 +84,6 @@ Copy .env.example to .env.local and add values for the variables
 ### Start the development server:
 
 ``` bash
-Copy code
 npm run dev
 ```
 
