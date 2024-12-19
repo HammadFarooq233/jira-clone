@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { client } from "@/lib/rpc";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type ResponseType = InferResponseType<
   (typeof client.api.auth.register)["$post"]
@@ -16,11 +17,19 @@ export const useRegister = () => {
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async ({ json }) => {
       const response = await client.api.auth.register["$post"]({ json });
+
+      if (response.status !== 200) {
+        throw new Error("User already exists");
+      }
+
       return await response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["current"] });
       router.refresh();
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 
